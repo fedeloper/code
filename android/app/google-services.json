@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "307493492111",
+    "project_id": "magicmirror-36ae5",
+    "storage_bucket": "magicmirror-36ae5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307493492111:android:213e46afcf223134eea7fa",
+        "android_client_info": {
+          "package_name": "com.flutterflow.magicmirror"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "307493492111-0gnfnk299e05oj9qu0olnoc9rkh7hkcn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1hXjXVsaPvDHTyT-BRQE6LoYKIoCYlHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "307493492111-0gnfnk299e05oj9qu0olnoc9rkh7hkcn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
