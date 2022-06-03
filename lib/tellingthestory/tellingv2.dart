@@ -211,7 +211,7 @@ class _TellingV2State extends State<TellingV2> {
                         stream: _player.sequenceStateStream,
                         builder: (context, snapshot) {
                           final state = snapshot.data;
-                          if (state?.sequence.isEmpty ?? true)
+                          if (state.sequence.isEmpty ?? true)
                             return SizedBox();
                           final metadata =
                               state.currentSource.tag as AudioMetadata;
