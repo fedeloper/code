@@ -1,27 +1,18 @@
+import 'dart:developer' as developer;
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:magic_mirror/accountpage/userPreferences.dart';
-import 'package:magic_mirror/components/mado_widget.dart';
 import 'package:magic_mirror/home_page/home_page_widget.dart';
 import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
-import 'dart:developer' as developer;
+import  'package:string_similarity/string_similarity.dart';
 
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import '../accountpage/accountpage_widget.dart';
-import 'package:magic_mirror/searchstory/searchstory_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../searchstory/searchstory_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import  'package:string_similarity/string_similarity.dart';
-
 import 'book.dart';
 
 class SearchstoryWidget extends StatefulWidget {

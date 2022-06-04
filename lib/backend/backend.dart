@@ -1,13 +1,11 @@
 import 'package:built_value/serializer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-import '../flutter_flow/flutter_flow_util.dart';
-
-import 'schema/users_record.dart';
 import 'schema/serializers.dart';
+import 'schema/users_record.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
+
 export 'schema/serializers.dart';
 export 'schema/users_record.dart';
 

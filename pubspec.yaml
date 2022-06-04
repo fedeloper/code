@@ -58,7 +58,6 @@ dependencies:
   camera: 0.5.8+17
   xfile: ^1.1.0
   tflite: ^1.1.2
-  tflite_flutter: ^0.8.0
   logger: ^1.0.0
   image_picker: ^0.8.0+3
   just_audio: ^0.9.24
@@ -68,6 +67,7 @@ dependencies:
   image: ^3.0.2
   animate_icons: ^2.0.0
   flash: ^2.0.1
+  alan_voice: ^3.6.0
 
 
 dev_dependencies:

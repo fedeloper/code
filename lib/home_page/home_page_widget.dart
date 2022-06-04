@@ -1,21 +1,16 @@
-import 'dart:math';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:magic_mirror/accountpage/accountpage_widget.dart';
 import 'package:magic_mirror/searchstory/book.dart';
 import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/searchstory/searchstory_widget.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
-import 'dart:developer' as developer;
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'dart:developer';
 import '../components/mado_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../magicmirror/magicmirror_widget.dart';
 import '../magicmirror/magicmirror2_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+import 'package:alan_voice/alan_voice.dart';
 class placeHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -92,11 +87,11 @@ class Home extends StatefulWidget {
   @override
   HomeState createState() => HomeState();
 }
-
+List<Book> books = [];
 class HomeState extends State<Home> {
   final pageViewController = PageController();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  List<Book> books = [];
+
 
   void tt() async {
     Repository rep = new Repository();
@@ -110,12 +105,14 @@ class HomeState extends State<Home> {
 
   void addItemToList(List<Book> list) {
     setState(() {
-      this.books = list;
+      books = list;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+
+
 
     tt();
     return Scaffold(
@@ -585,6 +582,28 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   Widget build(BuildContext context) {
     //tt();
+    /// Init Alan Button with project key from Alan Studio
+    AlanVoice.addButton("1b36d6d7bdb933e3b3117baff91b644c2e956eca572e1d8b807a3e2338fdd0dc/stage");
+    AlanVoice.setLogLevel("all");
+    /// Handle commands from Alan Studio
+    AlanVoice.onCommand.add((command) {
+
+      log("got new command ${command.toString()}");
+      switch (command.data["command"]) {
+        case "play":
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TellingV2(
+                  book: books[0]),
+            ),
+          );
+          break;
+        default:
+          debugPrint("Unknown command: ${command}");
+      }
+
+    });
     return Scaffold(
         key: scaffoldKey,
         bottomNavigationBar: BottomNavigationBar(

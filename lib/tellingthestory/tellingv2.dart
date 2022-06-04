@@ -1,27 +1,26 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:io';
-import 'package:flash/flash.dart';
-import 'package:magic_mirror/accountpage/accountpage_widget.dart';
-import 'package:magic_mirror/home_page/home_page_widget.dart';
-import 'package:magic_mirror/searchstory/searchstory_widget.dart';
-import 'package:path/path.dart';
+
 import 'package:animate_icons/animate_icons.dart';
 import 'package:audio_session/audio_session.dart';
+import 'package:camera/camera.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:magic_mirror/home_page/home_page_widget.dart';
 import 'package:magic_mirror/searchstory/audiofile.dart';
 import 'package:magic_mirror/searchstory/book.dart';
 import 'package:magic_mirror/searchstory/repository.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'common.dart';
-import 'dart:developer' as developer;
-import 'package:camera/camera.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:rxdart/rxdart.dart';
-import '../components/mado_widget.dart';
+
+import 'common.dart';
 
 void main() => runApp(MaterialApp(home: TellingV2()));
 
@@ -68,6 +67,7 @@ class _TellingV2State extends State<TellingV2> {
     });
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) => checkEyes());
     _player = AudioPlayer();
+
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
@@ -130,6 +130,7 @@ class _TellingV2State extends State<TellingV2> {
     this.setState(() {
       loaded_links = true;
     });
+    _player.play();
   }
   int _selectedIndex = 0;
   @override

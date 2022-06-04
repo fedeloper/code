@@ -1,11 +1,10 @@
 import 'dart:io';
 
+import 'package:intl/intl.dart';
 import 'package:latlong/latlong.dart';
 import 'package:location/location.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:timeago/timeago.dart' as timeago;
-import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 String dateTimeFormat(String format, DateTime dateTime) {
   if (format == 'relative') {

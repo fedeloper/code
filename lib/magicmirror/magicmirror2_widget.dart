@@ -1,32 +1,17 @@
-import 'dart:io';
-import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'package:magic_mirror/magicmirror/cropper.dart';
-import 'package:magic_mirror/searchstory/book.dart';
-import 'package:magic_mirror/searchstory/books_db_provider.dart';
-import 'package:magic_mirror/searchstory/repository.dart';
-import 'package:magic_mirror/tellingthestory/tellingv2.dart';
-import 'package:tflite/tflite.dart';
 import 'dart:developer' as developer;
-import '../components/mado_widget.dart';
-import '../tellingthestory/tellingthestory_widget.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../magicmirror/magicmirror_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image/image.dart' as img;
-
-import 'checkPhoto.dart';
+import 'package:magic_mirror/magicmirror/cropper.dart';
+import 'package:magic_mirror/searchstory/book.dart';
+import 'package:magic_mirror/searchstory/repository.dart';
+import 'package:magic_mirror/tellingthestory/tellingv2.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:tflite/tflite.dart';
 
 class MagicMirror2Widget extends StatefulWidget {
   @override
@@ -82,7 +67,7 @@ class _MagicMirror2Widget extends State<MagicMirror2Widget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
 
         child: Icon(Icons.camera),
@@ -114,7 +99,7 @@ class _MagicMirror2Widget extends State<MagicMirror2Widget> {
         child: Container(
 
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height * 1,
+          height: MediaQuery.of(context).size.height ,
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [

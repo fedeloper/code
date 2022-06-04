@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags/flutter_tags.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class customTags extends StatefulWidget {
 //  List<String> listOfTags = [];

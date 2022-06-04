@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'auth/firebase_user_provider.dart';
-import 'package:magic_mirror/login/login_widget.dart';
 import 'package:magic_mirror/home_page/home_page_widget.dart';
+import 'package:magic_mirror/login/login_widget.dart';
+
+import 'auth/firebase_user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

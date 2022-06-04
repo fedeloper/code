@@ -1,27 +1,11 @@
-import '../components/mado_widget.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_video_player.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../magicmirror/magicmirror_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'dart:io';
-import '../components/mado_widget.dart';
-import '../tellingthestory/tellingthestory_widget.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../magicmirror/magicmirror_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:tflite/tflite.dart';
-import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:tflite/tflite.dart';
+
+import '../components/mado_widget.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
+import '../magicmirror/magicmirror_widget.dart';
 
 
 class TellingthestoryWidget extends StatefulWidget {

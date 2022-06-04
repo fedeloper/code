@@ -1,14 +1,8 @@
-import 'dart:typed_data';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:tflite/tflite.dart';
-
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import '/auth/firebase_user_provider.dart';
-//import '/login/login_widget.dart';
-import 'package:magic_mirror/home_page/home_page_widget.dart';
 void main() => runApp(Example());
 
 class Example extends StatelessWidget {

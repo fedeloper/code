@@ -1,18 +1,13 @@
-import 'package:magic_mirror/accountpage/picProfileWIdget.dart';
-import 'package:magic_mirror/accountpage/user_preference.dart';
-import 'package:magic_mirror/backend/schema/users_record.dart';
-import 'package:flutter_tags/flutter_tags.dart';
-import 'package:magic_mirror/home_page/home_page_widget.dart';
-import '../auth/auth_util.dart';
-import '../components/mado_widget.dart';
-import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags/flutter_tags.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:magic_mirror/accountpage/picProfileWIdget.dart';
+import 'package:magic_mirror/accountpage/user_preference.dart';
+import 'package:magic_mirror/backend/schema/users_record.dart';
+import 'package:magic_mirror/home_page/home_page_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../flutter_flow/flutter_flow_theme.dart';
 
 class userPreferencesWidget extends StatefulWidget {
   final UsersRecord record;

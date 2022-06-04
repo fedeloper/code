@@ -28,6 +28,10 @@ apply plugin: 'com.google.gms.google-services'  // Google Services plugin
 
 android {
     compileSdkVersion 31
+    aaptOptions {
+        noCompress 'tflite'
+        noCompress 'lite'
+    }
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -36,11 +40,13 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
-
+    packagingOptions {
+        pickFirst '**/*.so'
+    }
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.flutterflow.magicmirror"
-        minSdkVersion 21
+        minSdkVersion 28
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
