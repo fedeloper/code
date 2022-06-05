@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:animate_icons/animate_icons.dart';
@@ -19,7 +20,7 @@ import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:rxdart/rxdart.dart';
-
+import 'package:alan_voice/alan_voice.dart';
 import 'common.dart';
 
 void main() => runApp(MaterialApp(home: TellingV2()));
@@ -41,18 +42,76 @@ class _TellingV2State extends State<TellingV2> {
   int _addedCount = 0;
   CameraDescription camera;
   CameraController controller;
-  bool attention_ai = true;
-  bool secure_ai = true;
+  bool attention_ai = false;
+  bool secure_ai = false;
   bool _isInited = false;
   FaceDetector faceDetector =
       GoogleMlKit.vision.faceDetector(FaceDetectorOptions(
     enableContours: true,
     enableClassification: true,
   ));
-
+double volum;
+bool stopping = false;
   _TellingV2State(this.book);
   @override
   void initState() {
+    AlanVoice.onButtonState.add((command) {
+
+      if(command.name.toString() == "LISTEN")
+      {
+        if (_player.volume >0)
+        {
+          volum = _player.volume;
+          _player.setVolume(0);
+        }
+
+      }
+
+
+
+    });
+    AlanVoice.onCommand=Set();
+    AlanVoice.onCommand.add((command) {
+
+      switch (command.data["command"]) {
+
+        case "pause":
+          _player.pause();
+          _player.stop();
+          _player.setVolume(volum);
+          break;
+        case "resume":
+          _player.play();
+          _player.setVolume(volum);
+          break;
+        case "next":
+          _player.stop();
+          _player.seekToNext();
+          _player.play();
+          _player.setVolume(volum);
+          break;
+        case "previous":
+          _player.stop();
+          _player.seekToPrevious();
+          _player.play();
+          _player.setVolume(volum);
+          break;
+        case "play":
+          _player.pause();
+          _player.stop();
+          Navigator.push(
+            this.context,
+            MaterialPageRoute(
+              builder: (context) => TellingV2(
+                  book: books[1]),
+            ),
+          );
+          break;
+        default:
+          debugPrint("Unknown command: ${command}");
+      }
+
+    });
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final cameras = await availableCameras();
@@ -152,6 +211,7 @@ class _TellingV2State extends State<TellingV2> {
 
   @override
   Widget build(BuildContext context) {
+
     controller_icon = AnimateIconController();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
