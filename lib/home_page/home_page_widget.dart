@@ -6,6 +6,7 @@ import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/searchstory/searchstory_widget.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:string_similarity/string_similarity.dart';
 import 'dart:developer';
 import '../components/mado_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -591,6 +592,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       log("got new command ${command.toString()}");
       switch (command.data["command"]) {
         case "play":
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => TellingV2(
+                  book: books[0]),
+            ),
+          );
+          break;
+        case "search":
+          String query = command.data["route"];
+          log("porca"+query);
+          books.sort((b, a) => a.title.similarityTo(query).compareTo(b.title.similarityTo(query)));
           Navigator.push(
             context,
             MaterialPageRoute(
