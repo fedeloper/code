@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.17.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -55,19 +55,23 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
-  camera: 0.5.8+17
+  camera: ^0.9.7+1
   xfile: ^1.1.0
-  tflite: ^1.1.2
   logger: ^1.0.0
   image_picker: ^0.8.0+3
   just_audio: ^0.9.24
   string_similarity: ^2.0.0
   flutter_spinkit: ^5.0.0
-  google_ml_kit: ^0.6.0
+  google_mlkit_face_detection: ^0.3.0
   image: ^3.0.2
   animate_icons: ^2.0.0
   flash: ^2.0.1
   alan_voice: ^3.6.0
+  tflite_flutter: ^0.9.0
+  tflite_flutter_helper:
+    git:
+      url: https://github.com/elephantum/tflite_flutter_helper.git
+      ref: a7d7a59a33f7cffa0a2a12ab05625807622cc97a
 
 
 dev_dependencies:

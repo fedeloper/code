@@ -1,3 +1,4 @@
+// @dart=2.9
 final imageRoot = "https://archive.org/services/get-item-image.php?identifier=";
 
 class Book {
