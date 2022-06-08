@@ -59,11 +59,19 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
       // To display the current output of the camera,
       // create a CameraController
+      //camController = new CameraController(
+       // cameras[0],
+       // ResolutionPreset.medium,
+       // imageFormatGroup: ImageFormatGroup.yuv420,
+      //);
+
       _controller = CameraController(
         // Get a specific camera from the list of available cameras
-          cameras.last, //Should be the "selfie" one
+          cameras[1], //Should be the "selfie" one
           // Define the resolution to use
-          ResolutionPreset.high);
+          ResolutionPreset.high,
+        imageFormatGroup: ImageFormatGroup.yuv420,
+      );
 
       // Next, initialize the controller. This returns a Future
       _initializeControllerFuture = _controller.initialize().then((value) =>
