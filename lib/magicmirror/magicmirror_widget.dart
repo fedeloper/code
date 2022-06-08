@@ -1,3 +1,4 @@
+/*
 import 'dart:developer' as developer;
 import 'dart:io';
 
@@ -8,7 +9,7 @@ import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tflite/tflite.dart';
+
 
 import '../components/mado_widget.dart';
 class MagicmirrorWidget extends StatefulWidget {
@@ -173,3 +174,5 @@ class _MagicmirrorWidget extends State<MagicmirrorWidget> {
 
   }
 }
+ */
+

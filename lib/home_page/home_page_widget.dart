@@ -1,3 +1,4 @@
+// @dart = 2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:magic_mirror/accountpage/accountpage_widget.dart';
@@ -9,7 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'dart:developer';
 import '../components/mado_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../magicmirror/magicmirror2_widget.dart';
+import '../magicmirror/magicmirror3_widget.dart';
 import 'package:alan_voice/alan_voice.dart';
 class placeHolder extends StatelessWidget {
   @override
@@ -366,7 +367,7 @@ class HomeState extends State<Home> {
                                         MaterialPageRoute(
 
                                           builder: (context) =>
-                                              MagicMirror2Widget(),
+                                              MagicMirror3Widget(),
                                         ),
                                       );
                                     },

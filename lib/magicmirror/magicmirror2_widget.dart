@@ -1,3 +1,4 @@
+/*
 import 'dart:developer' as developer;
 import 'dart:io';
 
@@ -11,7 +12,7 @@ import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:tflite/tflite.dart';
+import 'package:tflite_flutter/tflite_flutter.dart' as tfl;
 
 class MagicMirror2Widget extends StatefulWidget {
   @override
@@ -254,6 +255,7 @@ class _MagicMirror2Widget extends State<MagicMirror2Widget> {
 
 
 
+
     await Tflite.loadModel(model: "assets/models/model.tflite",labels: "assets/models/labels.txt");
     List output = await Tflite.runModelOnImage(
         path: path,
@@ -289,3 +291,5 @@ class _MagicMirror2Widget extends State<MagicMirror2Widget> {
 }
 
 
+
+ */

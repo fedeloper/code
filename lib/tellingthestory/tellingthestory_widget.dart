@@ -1,11 +1,14 @@
+/*
+// @dart=2.9
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite/tflite.dart';
+
+import 'package:collection/collection.dart';
 
 import '../components/mado_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../magicmirror/magicmirror_widget.dart';
+import '../magicmirror/magicmirror3_widget.dart';
 
 
 class TellingthestoryWidget extends StatefulWidget {
@@ -21,6 +24,7 @@ class _TellingthestoryWidgetState  extends State<TellingthestoryWidget> {
   CameraController controller;
   bool _isInited = false;
   _TellingthestoryWidgetState(this.path);
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -94,7 +98,7 @@ class _TellingthestoryWidgetState  extends State<TellingthestoryWidget> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => MagicmirrorWidget(),
+                            builder: (context) => MagicMirror3Widget(camera: camera),
                           ),
                         );
                       },
@@ -154,14 +158,69 @@ class _TellingthestoryWidgetState  extends State<TellingthestoryWidget> {
   }
   String result;
   String path;
-  Future classifyImage() async {
 
-    await Tflite.loadModel(model: "assets/models/model.tflite",labels: "assets/models/labels.txt");
-    var output = await Tflite.runModelOnImage(path: path);
 
-    final snackBar = SnackBar(content: Text(output.toString()));
+  Future classifyImage(path) async {
 
-    ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+    //Create an ImageProgessor with all ops required.
+    ImageProcessor imageProcessor = ImageProcessorBuilder().add(
+        NormalizeOp(125.0, 170.0)
+    ).build();
+
+    // Create a TensorImage from a File
+    TensorImage tensorImage = TensorImage.fromFile(File(path));
+
+    // Preprocess the image
+    tensorImage = imageProcessor.process(tensorImage);
+
+    // Create a container for the result and specify that this is a flaot model.
+    TensorBuffer probabilityBuffer = TensorBuffer.createFixedSize(<int>[1,7], TfLiteType.float32);
+
+
+    try {
+      // Create Interpreter from asset.
+      Interpreter interpreter = await Interpreter.fromAsset("assets/models/model.tflite");
+      interpreter.run(tensorImage.buffer, probabilityBuffer.buffer);
+    } catch (e) {
+      print('Error loading model: ' + e.toString());
+    }
+
+    List<String> labels = await FileUtil.loadLabels("assets/models/labels.txt");
+
+    // Associate the probabilities with category labels
+
+    //TensorProcessor probabilityProcessor = TensorProcessorBuilder().add(postProcessNormalizeOp).build();
+    TensorLabel tensorLabel = TensorLabel.fromList(labels, probabilityBuffer);
+
+    Map<String, double> doubleMap = tensorLabel.getMapWithFloatValue();
+
+    // Get the top predition
+    final output = getTopProbability(doubleMap);
+
+    //final snackBar = SnackBar(content: Text());
+    print("tmp:" + output.toString());
+    print(output.key.isEmpty);
+    return output.key.isEmpty ? "Neutral" : output.key[0];
+    //ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
 
   }
+
+  MapEntry<String, double> getTopProbability(Map<String, double> doubleMap) {
+    var pq = PriorityQueue<MapEntry<String, double>>(compare);
+    pq.addAll(doubleMap.entries);
+
+    return pq.first;
+  }
+
+  int compare(MapEntry<String, double> e1, MapEntry<String, double> e2) {
+    if (e1.value > e2.value) {
+      return -1;
+    } else if (e1.value == e2.value) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
 }
+ */
+

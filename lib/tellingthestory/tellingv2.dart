@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'dart:async';
 import 'dart:developer' as developer;
 import 'dart:developer';
@@ -11,7 +12,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:magic_mirror/home_page/home_page_widget.dart';
 import 'package:magic_mirror/searchstory/audiofile.dart';
@@ -46,7 +47,7 @@ class _TellingV2State extends State<TellingV2> {
   bool secure_ai = false;
   bool _isInited = false;
   FaceDetector faceDetector =
-      GoogleMlKit.vision.faceDetector(FaceDetectorOptions(
+      FaceDetector(options: FaceDetectorOptions(
     enableContours: true,
     enableClassification: true,
   ));
@@ -139,8 +140,8 @@ bool stopping = false;
       final path =
           join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
 
-      await controller.takePicture(path);
-      InputImage inputImage = new InputImage.fromFile(File(path));
+      var image = await controller.takePicture();
+      InputImage inputImage = new InputImage.fromFile(File(image.path));
       final faces = await faceDetector.processImage(inputImage);
       if ((faces.length == 0) & (attention_ai == true)) {
         _player.stop();
