@@ -11,8 +11,10 @@ import 'package:string_similarity/string_similarity.dart';
 import 'dart:developer';
 import '../components/mado_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../magicmirror/magicmirror3_widget.dart';
+import '../magicmirror/magicmirror2_widget.dart';
 import 'package:alan_voice/alan_voice.dart';
+
+import '../magicmirror/magicmirror3_widget.dart';
 class placeHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -587,7 +589,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     /// Init Alan Button with project key from Alan Studio
     AlanVoice.addButton("1b36d6d7bdb933e3b3117baff91b644c2e956eca572e1d8b807a3e2338fdd0dc/stage");
     AlanVoice.setLogLevel("all");
+
     /// Handle commands from Alan Studio
+    AlanVoice.onCommand=Set();
     AlanVoice.onCommand.add((command) {
 
       log("got new command ${command.toString()}");

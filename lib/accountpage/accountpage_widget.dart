@@ -144,33 +144,13 @@ class _AccountpageWidgetState extends State<AccountpageWidget> {
                               ),
 
                             ),
-                            onTap: () {
-    StreamBuilder<List<UsersRecord>>(
-    stream: queryUsersRecord(
-    queryBuilder: (usersRecord) =>
-    usersRecord.where('email', isEqualTo: currentUserEmail),
-    singleRecord: true,
-    ),
-    builder: (context, snapshot) {
-    // Customize what your widget looks like when it's loading.
-    if (!snapshot.hasData) {
-    return Center(child: CircularProgressIndicator());
-    }
-    List<UsersRecord> madoUsersRecordList = snapshot.data;
-    // Customize what your widget looks like with no query results.
-    if (snapshot.data.isEmpty) {
-    // return Container();
-    // For now, we'll just include some dummy data.
-    madoUsersRecordList = createDummyUsersRecord(count: 1);
-    }
-    final madoUsersRecord = madoUsersRecordList.first;
-
-                                Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                builder: (context) =>   userPreferencesWidget(madoUsersRecord)));
-
-                                });})
+                            onTap: () {ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'to be implemented',
+                                ),
+                              ),
+                            );})
                             ,
                             Expanded(
                               child: Align(
@@ -199,29 +179,42 @@ class _AccountpageWidgetState extends State<AccountpageWidget> {
                             color: Colors.white,
                             shape: BoxShape.rectangle,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
-                                child: Text(
-                                  'Settings',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
+                          child: InkWell(
+                            onTap: () async {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'to be implemented',
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
+                              );
+                              return;
+
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
+                                  child: Text(
+                                    'Settings',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                    ),
                                   ),
                                 ),
-                              )
-                            ],
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -239,29 +232,42 @@ class _AccountpageWidgetState extends State<AccountpageWidget> {
                             color: Colors.white,
                             shape: BoxShape.rectangle,
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
-                                child: Text(
-                                  'Notifications',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Poppins',
+                          child: InkWell(
+                            onTap: () async {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'to be implemented',
+                                    ),
+                                  ),
+                                );
+                                return;
+
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.fromLTRB(24, 0, 0, 0),
+                                  child: Text(
+                                    'Notification',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Expanded(
-                                child: Align(
-                                  alignment: Alignment(0.9, 0),
-                                  child: Icon(
-                                    Icons.arrow_forward_ios,
-                                    color: Color(0xFF95A1AC),
-                                    size: 18,
+                                Expanded(
+                                  child: Align(
+                                    alignment: Alignment(0.9, 0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Color(0xFF95A1AC),
+                                      size: 18,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                         )
                       ],

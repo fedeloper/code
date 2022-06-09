@@ -2,16 +2,17 @@ import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:collection/collection.dart';
 import 'dart:math';
-import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
+import 'package:google_ml_kit/google_ml_kit.dart';
 import 'package:image/image.dart' as img;
 import 'package:magic_mirror/magicmirror/cropper.dart';
 import 'package:magic_mirror/searchstory/book.dart';
 import 'package:magic_mirror/searchstory/repository.dart';
 import 'package:magic_mirror/tellingthestory/tellingv2.dart';
+
+
 
 
 
@@ -41,9 +42,6 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
 
 
-  final FaceDetector faceDetector = FaceDetector(options: FaceDetectorOptions(
-    enableContours: true,
-  ));
 
 
   @override
@@ -59,18 +57,13 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
       // To display the current output of the camera,
       // create a CameraController
-      //camController = new CameraController(
-       // cameras[0],
-       // ResolutionPreset.medium,
-       // imageFormatGroup: ImageFormatGroup.yuv420,
-      //);
+
 
       _controller = CameraController(
         // Get a specific camera from the list of available cameras
           cameras[1], //Should be the "selfie" one
           // Define the resolution to use
           ResolutionPreset.high,
-        imageFormatGroup: ImageFormatGroup.yuv420,
       );
 
       // Next, initialize the controller. This returns a Future
@@ -87,7 +80,7 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
     void dispose() {
       // Dispose of the controller when the widget is disposed
       _controller.dispose();
-      faceDetector.close();
+
       super.dispose();
     }
 
@@ -172,7 +165,7 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
               final path = image.path;
 
-              await crop(path);
+
 
               var book = await getBook(path);
               print("Book: " + book.title);
@@ -195,7 +188,7 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
       );
     }
 
-  Future<void> crop(path) async {
+  /*Future<void> crop(path) async {
 
     InputImage inputImage = new InputImage.fromFile(File(path));
     //final Size absoluteImageSize = inputImage.inputImageData.size;
@@ -213,29 +206,58 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
     isBusy = false;
 
-  }
+  }*/
+  String detectSmile(smileProb) {
+    if (smileProb > 0.86) {
 
+      return 'Big smile with teeth';
+    } else if (smileProb > 0.8) {
+
+      return 'Big Smile';
+    } else if (smileProb > 0.3) {
+
+      return 'Smile';
+    } else {
+
+      return 'Sad';
+    }
+  }
+  FaceDetector? _faceDetector;
   Future<Book> getBook(path) async
   {
-    var emotion = await classifyImage(path);
-    final snackBar = SnackBar(content: Text(emotion.toString()));
-    final String id = emotion_correspondance[emotion]![0];
+    _faceDetector = GoogleMlKit.vision.faceDetector(
+      FaceDetectorOptions(
+        enableClassification: true,
+        enableLandmarks: true,
+      ),
+    );
+    InputImage inputImage = new InputImage.fromFile(File(path));
+    List<Face> l= await _faceDetector!.processImage(inputImage) ;
+    if (l.length>0){
+      var emotion = detectSmile(l[0].smilingProbability);
+      final snackBar = SnackBar(content: Text(emotion.toString()));
+      final String id = emotion_correspondance[emotion]![0];
 
-    developer.log(id);
-    ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
+      developer.log(id);
+      ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
 
+      Repository rep = new Repository();
+
+      return await rep.getBook(id);
+
+    }
+    developer.log("ERRORE");
     Repository rep = new Repository();
-
-    return await rep.getBook(id);
+    return await rep.getBook("The Man Who Knew Too Much");
   }
 
   static const Map<String, List<String>> emotion_correspondance =
-  {"Angry": ["The Man Who Knew Too Much"],
+  {"Big smile with teeth": ["The Man Who Knew Too Much"],
     "Disgust": ["Dr. Nikola’s Experiment"],
     "Fear": ["Has a Frog a Soul"],
-    "Happy": ["Christmas Carol Collection 2009"],
+    "Smile": ["Christmas Carol Collection 2009"],
     "Sad": ["Ghost Stories of an Antiquary"],
-    "Surprise": ["The Secret Agent, by Joseph Conrad"],
+    "Big Smile": ["The Secret Agent, by Joseph Conrad"],
     "Neutral": [
       "A Personal Anthology of Shakespeare, compiled by Martin Clifton"
     ]};
@@ -243,50 +265,6 @@ class MagicMirror3WidgetState extends State<MagicMirror3Widget> {
 
 
 
-  Future classifyImage(path) async {
-
-    //Create an ImageProgessor with all ops required.
-    ImageProcessor imageProcessor = ImageProcessorBuilder().add(
-      NormalizeOp(125.0, 170.0)
-    ).build();
-
-    // Create a TensorImage from a File
-    TensorImage tensorImage = TensorImage.fromFile(File(path));
-
-    // Preprocess the image
-    tensorImage = imageProcessor.process(tensorImage);
-
-    // Create a container for the result and specify that this is a flaot model.
-    TensorBuffer probabilityBuffer = TensorBuffer.createFixedSize(<int>[1,7], TfLiteType.float32);
-
-
-    try {
-      // Create Interpreter from asset.
-      Interpreter interpreter = await Interpreter.fromAsset("assets/models/model.tflite");
-      interpreter.run(tensorImage.buffer, probabilityBuffer.buffer);
-    } catch (e) {
-      print('Error loading model: ' + e.toString());
-    }
-
-    List<String> labels = await FileUtil.loadLabels("assets/models/labels.txt");
-
-    // Associate the probabilities with category labels
-
-    //TensorProcessor probabilityProcessor = TensorProcessorBuilder().add(postProcessNormalizeOp).build();
-    TensorLabel tensorLabel = TensorLabel.fromList(labels, probabilityBuffer);
-
-    Map<String, double> doubleMap = tensorLabel.getMapWithFloatValue();
-
-    // Get the top predition
-    final output = getTopProbability(doubleMap);
-
-    //final snackBar = SnackBar(content: Text());
-    print("tmp:" + output.toString());
-    print(output.key.isEmpty);
-    return output.key.isEmpty ? "Neutral" : output.key[0];
-    //ScaffoldMessenger.of(this.context).showSnackBar(snackBar);
-
-  }
 
   MapEntry<String, double> getTopProbability(Map<String, double> doubleMap) {
     var pq = PriorityQueue<MapEntry<String, double>>(compare);

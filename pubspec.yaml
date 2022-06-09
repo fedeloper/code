@@ -62,18 +62,13 @@ dependencies:
   just_audio: ^0.9.24
   string_similarity: ^2.0.0
   flutter_spinkit: ^5.0.0
-  google_mlkit_face_detection: ^0.3.0
+  google_ml_kit: ^0.6.0
   image: ^3.0.2
   animate_icons: ^2.0.0
   flash: ^2.0.1
   alan_voice: ^3.6.0
-  tflite_flutter: ^0.9.0
-  tflite_flutter_helper:
-    git:
-      url: https://github.com/elephantum/tflite_flutter_helper.git
-      ref: a7d7a59a33f7cffa0a2a12ab05625807622cc97a
-
-
+  get: ^4.1.4
+  color_blindness: ^0.1.1
 dev_dependencies:
   build_runner: ^1.11.5
   built_value_generator: ^8.0.4
@@ -98,7 +93,6 @@ flutter:
     - assets/videos/
     - assets/audios/
     - assets/models/
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

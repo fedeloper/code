@@ -21,7 +21,7 @@ String _mostDownloaded(int n) {
 final query = "title:(secret tomb) AND collection:(librivoxaudio)";
 
 String get_book_query(String title) {
-  return "https://archive.org/advancedsearch.php?$_commonParams&title:\\\""+ title +"\\\")&rows=1&page=1&output=json";
+  return 'https://archive.org/advancedsearch.php?q=collection:(librivoxaudio) AND title:('+title+')&fl=runtime,avg_rating,num_reviews,title,description,identifier,creator,date,downloads,subject,item_size&rows=1&page=1&output=json';
 }
 
 
@@ -60,6 +60,7 @@ class ArchiveApiProvider implements Source {
   @override
   Future<Book> book(String title) async {
     final uu = get_book_query(title);
+    developer.log(uu);
     final response = await client.get(Uri.parse("$uu"));
     Map resJson = json.decode(response.body);
     developer.log(title);
