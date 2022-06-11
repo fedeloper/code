@@ -416,28 +416,30 @@ bool stopping = false;
                         Container(
                             padding: EdgeInsets.fromLTRB(20, 0, 35, 0),
                             child: AnimateIcons(
-                              startIcon: Icons.visibility,
-                              endIcon: Icons.hearing, //visibility_off,
+                              startIcon: Icons.hearing,
+                              endIcon: Icons.visibility, //visibility_off,
                               size: 50.0,
                               controller: controller_icon,
                               // add this tooltip for the start icon
-                              startTooltip: 'Attention Mode',
+                              startTooltip: 'Relax Mode',
                               // add this tooltip for the end icon
-                              endTooltip: 'Relax Mode',
+                              endTooltip: 'Attention Mode',
 
                               onStartIconPress: () {
+
+                                attention_ai = true;
+
+                                _showBasicsFlash(Duration(milliseconds: 1300),
+                                    "Attention Mode : activated");
+                                return true;
+
+                              },
+                              onEndIconPress: () {
                                 attention_ai = false;
-                                controller.dispose();
+
                                 _showBasicsFlash(Duration(milliseconds: 1300),
                                     "Relax Mode: activated");
 
-                                return true;
-                              },
-                              onEndIconPress: () {
-                                attention_ai = true;
-                                //controller.initialize();
-                                _showBasicsFlash(Duration(milliseconds: 1300),
-                                    "Attention Mode : activated");
                                 return true;
                               },
 
@@ -450,26 +452,27 @@ bool stopping = false;
                         Container(
                           padding: EdgeInsets.fromLTRB(35, 0, 75, 0),
                           child: AnimateIcons(
-                            startIcon: Icons.person,
-                            endIcon: Icons.groups,
+                            startIcon: Icons.groups,
+                            endIcon: Icons.person,
                             size: 50.0,
                             controller: controller_icon,
                             // add this tooltip for the start icon
-                            startTooltip: 'Single Mode',
+                            startTooltip: 'Group Mode',
                             // add this tooltip for the end icon
-                            endTooltip: 'Group Mode',
+                            endTooltip: 'Single Mode',
 
                             onStartIconPress: () {
+
+                              secure_ai = true;
+                              _showBasicsFlash(Duration(milliseconds: 1300),
+                                  "Single Mode: activated");
+                              return true;
+                            },
+                            onEndIconPress: () {
                               secure_ai = false;
                               _showBasicsFlash(Duration(milliseconds: 1300),
                                   "Group Mode: activated");
 
-                              return true;
-                            },
-                            onEndIconPress: () {
-                              secure_ai = true;
-                              _showBasicsFlash(Duration(milliseconds: 1300),
-                                  "Single Mode: activated");
                               return true;
                             },
                             duration: Duration(milliseconds: 500),
